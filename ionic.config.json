@@ -1,0 +1,7 @@
+{
+  "name": "teach-ionic8-vue3-contacts",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
