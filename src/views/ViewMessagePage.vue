@@ -32,7 +32,7 @@
   </ion-page>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { useRoute } from 'vue-router';
 import {
   IonBackButton,
@@ -50,13 +50,13 @@ import { personCircle } from 'ionicons/icons';
 import { getMessage } from '../data/messages';
 
 const getBackButtonText = () => {
-  const win = window as any;
+  const win = window;
   const mode = win && win.Ionic && win.Ionic.mode;
   return mode === 'ios' ? 'Inbox' : '';
 };
 
 const route = useRoute();
-const message = getMessage(parseInt(route.params.id as string, 10));
+const message = getMessage(parseInt(route.params.id, 10));
 </script>
 
 <style scoped>

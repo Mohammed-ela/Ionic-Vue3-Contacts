@@ -24,7 +24,7 @@
   </ion-page>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import {
   IonContent,
   IonHeader,
@@ -36,12 +36,12 @@ import {
   IonToolbar,
 } from '@ionic/vue';
 import MessageListItem from '@/components/MessageListItem.vue';
-import { getMessages, Message } from '@/data/messages';
+import { getMessages } from '@/data/messages';
 import { ref } from 'vue';
 
-const messages = ref<Message[]>(getMessages());
+const messages = ref(getMessages());
 
-const refresh = (ev: CustomEvent) => {
+const refresh = (ev) => {
   setTimeout(() => {
     ev.detail.complete();
   }, 3000);
