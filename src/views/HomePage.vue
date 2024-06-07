@@ -1,49 +1,56 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
+    <ion-header>
       <ion-toolbar>
-        <ion-title>Inbox</ion-title>
+        <ion-title>Contacts</ion-title>
+        <ion-buttons slot="end">
+          <ion-button @click="goToCreate">Ajouter</ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
-
-    <ion-content :fullscreen="true">
-      <ion-refresher slot="fixed" @ionRefresh="refresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-      </ion-refresher>
-
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Inbox</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
+    <ion-content>
+      <ion-searchbar v-model="searchQuery"></ion-searchbar>
       <ion-list>
-        <MessageListItem v-for="message in messages" :key="message.id" :message="message" />
+        <ion-item v-for="contact in filteredContacts" :key="contact.id" @click="goToDetail(contact.id)">
+          <ion-label>
+            <h2>{{ contact.name }}</h2>
+            <p>{{ contact.email }}</p>
+          </ion-label>
+          <ion-button @click.stop="goToEdit(contact.id)">Modifier</ion-button>
+          <ion-button @click.stop="deleteContact(contact.id)" color="danger">Supprimer</ion-button>
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-page>
 </template>
 
-<script setup>
-import {
-  IonContent,
-  IonHeader,
-  IonList,
-  IonPage,
-  IonRefresher,
-  IonRefresherContent,
-  IonTitle,
-  IonToolbar,
-} from '@ionic/vue';
-import MessageListItem from '@/components/MessageListItem.vue';
-import { getMessages } from '@/data/messages';
-import { ref } from 'vue';
-
-const messages = ref(getMessages());
-
-const refresh = (ev) => {
-  setTimeout(() => {
-    ev.detail.complete();
-  }, 3000);
+<script>
+export default {
+  data() {
+    return {
+      searchQuery: '',
+      contacts: JSON.parse(localStorage.getItem('contacts')) || []
+    };
+  },
+  computed: {
+    filteredContacts() {
+      return this.contacts.filter(contact => contact.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
+    }
+  },
+  methods: {
+    goToCreate() {
+      this.$router.push('/create');
+    },
+    goToDetail(id) {
+      this.$router.push(`/${id}`);
+    },
+    goToEdit(id) {
+      this.$router.push(`/${id}/edit`);
+    },
+    deleteContact(id) {
+      this.contacts = this.contacts.filter(contact => contact.id !== id);
+      localStorage.setItem('contacts', JSON.stringify(this.contacts));
+    }
+  }
 };
 </script>
