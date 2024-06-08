@@ -11,11 +11,11 @@ const routes = [
     name: 'Home',
     component: HomePage  
   },
-  {
-    path: '/message/:id',
-    name: 'ViewMessage',
-    component: () => import('../views/ViewMessagePage.vue')  
-  },
+  // {
+  //    '/message/:id',
+  //    'ViewMessage',
+  //    () => import('../views/ViewMessagePage.vue')  
+  // },
   {
     path: '/create',
     name: 'CreateContact',
