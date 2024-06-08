@@ -1,44 +1,41 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import HomePage from '../views/HomePage.vue';
-import CreateContact from '../views/CreateContact.vue';
-import EditContact from '../views/EditContact.vue';
-import DetailContact from '../views/DetailContact.vue';
-import ViewMessagePage from '../views/ViewMessagePage.vue';
 
 const routes = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/home'  // Redirige vers /home
   },
   {
     path: '/home',
     name: 'Home',
-    component: HomePage
+    component: HomePage  
   },
   {
     path: '/message/:id',
-    component: ViewMessagePage
+    name: 'ViewMessage',
+    component: () => import('../views/ViewMessagePage.vue')  
   },
   {
     path: '/create',
     name: 'CreateContact',
-    component: CreateContact
+    component: () => import('../views/CreateContact.vue') 
   },
   {
-    path: '/:id/edit',
+    path: '/edit/:id',
     name: 'EditContact',
-    component: EditContact
+    component: () => import('../views/EditContact.vue')  
   },
   {
     path: '/:id',
     name: 'ContactDetails',
-    component: DetailContact
+    component: () => import('../views/DetailContact.vue') 
   }
 ];
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  history: createWebHistory(import.meta.env.BASE_URL),  
+  routes  // Les routes définies ci-dessus
 });
 
 export default router;
