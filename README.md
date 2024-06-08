@@ -17,25 +17,25 @@ This is a simple contact management application built with Ionic and Vue 3. The 
 
 To get started with the project, clone the repository and install the dependencies:
 
-\`\`\`bash
+bash
 git clone https://github.com/Mohammed-ela/ionic-vue-contact-manager.git
 cd ionic-vue-contact-manager
 npm install
-\`\`\`
+
 
 ### Usage
 
 To run the application in development mode, use the following command:
 
-\`\`\`bash
+bash
 ionic serv
-\`\`\`
+
 
 ### Project Structure
 
 Here's an overview of the project's structure:
 
-\`\`\`
+
 ├── src
 │   ├── assets
 │   ├── components
@@ -55,7 +55,7 @@ Here's an overview of the project's structure:
 │   └── vite.config.js
 ├── package.json
 └── README.md
-\`\`\`
+
 
 ### Features
 
