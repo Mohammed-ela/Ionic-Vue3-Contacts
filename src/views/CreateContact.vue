@@ -47,15 +47,26 @@
       const createContact = () => {
         // Vérifie que tous les champs sont remplis
         if (contact.name && contact.email && contact.phone) {
-          // Récupère les contacts existants depuis le LocalStorage
-          let contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
-          // Ajoute le nouveau contact à la liste
-          contacts.push({ ...contact, id: Date.now().toString() });
-          // Enregistre la liste mise à jour dans le LocalStorage
-          localStorage.setItem('contacts', JSON.stringify(contacts));
-          // Redirige vers la page d'accueil
-          window.location.href = '/home';
-        } else {
+    // Valide le numéro de téléphone (doit contenir uniquement des chiffres)
+    const phoneRegex = /^[0-9]+$/;
+    // Valide l'email (doit contenir un symbole @)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!phoneRegex.test(contact.phone)) {
+        alert('Le numéro de téléphone doit contenir uniquement des chiffres.');
+    } else if (!emailRegex.test(contact.email)) {
+        alert('Veuillez entrer une adresse email valide.');
+    } else {
+        // Récupère les contacts existants depuis le LocalStorage
+        let contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
+        // Ajoute le nouveau contact à la liste
+        contacts.push({ ...contact, id: Date.now().toString() });
+        // Enregistre la liste mise à jour dans le LocalStorage
+        localStorage.setItem('contacts', JSON.stringify(contacts));
+        // Redirige vers la page d'accueil
+        window.location.href = '/home';
+    }
+} else {
           // Affiche un message d'alerte si tous les champs ne sont pas remplis
           alert("Veuillez remplir tous les champs.");
         }
